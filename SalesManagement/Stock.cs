@@ -5,19 +5,14 @@ using System.Text;
 
 namespace SalesManagement
 {
-    public class Sale
+    public class Stock
     {
         public SalesManagement.Product[] Products
         {
-            get => default(Product[]);
+            get => default(Product);
             set
             {
             }
-        }
-
-        public double GetBilledValue()
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
