@@ -5,8 +5,7 @@ using System.Text;
 
 namespace SalesManagement
 {
-    public class Drink : Product
+    public class Order : Movement
     {
-
     }
 }

@@ -7,6 +7,27 @@ namespace SalesManagement
 {
     public abstract class Product : Saleable
     {
+        public Product(double tax, string basePrice)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected double basePrice
+        {
+            get => default(int);
+            set
+            {
+            }
+        }
+
+        protected double tax
+        {
+            get => default(int);
+            set
+            {
+            }
+        }
+
         public virtual double GetMaxProfit()
         {
             throw new NotImplementedException();

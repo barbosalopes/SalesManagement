@@ -7,12 +7,27 @@ namespace SalesManagement
 {
     public class Stock
     {
-        public SalesManagement.Product[] Products
+        protected SalesManagement.Product[] Products
         {
             get => default(Product);
             set
             {
             }
+        }
+
+        protected void AddProduct(Product product)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        protected void RemoveProduct()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void ValidateStockAmount()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
