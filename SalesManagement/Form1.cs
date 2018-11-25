@@ -15,6 +15,8 @@ namespace SalesManagement
         public Form1()
         {
             InitializeComponent();
+            string txt = FileApplication.Build("c:/Users/mateu/Documents/a.txt");
+            output.Text = txt;
         }
     }
 }

@@ -7,27 +7,40 @@ namespace SalesManagement
 {
     public class Company
     {
-        public SalesManagement.Sale[] Sales
-        {
-            get => default(Sale[]);
-            set
-            {
-            }
-        }
+        private List<Sale> Sales;
 
         public double GetGrossValue()
         {
-            throw new System.NotImplementedException();
+            double grossValue = 0;
+
+            foreach(Product product in Stock.GetProducts())
+            {
+                grossValue += product.GetPriceWithoutTax() - product.GetBasePrice();
+            }
+            return grossValue;
         }
 
         public double GetNetValue()
         {
-            throw new System.NotImplementedException();
+            double netValue = 0;
+
+            foreach (Product product in Stock.GetProducts())
+            {
+                netValue += product.GetPrice() - product.GetBasePrice();
+            }
+            return netValue;
         }
 
         public Product GetBestSellerUni()
         {
-            throw new System.NotImplementedException();
+            int maxUnSelled = -1;
+            Product bestUnSelled;
+
+            foreach(Product productType in Stock.GetProductTypes())
+            {
+
+            }
+            return maxUnSelled;
         }
 
         public Product GetBestSellerFat()
@@ -40,9 +53,9 @@ namespace SalesManagement
             throw new System.NotImplementedException();
         }
 
-        public void AddSale()
+        public void AddSale(Sale sale)
         {
-            throw new System.NotImplementedException();
+            Sales.Add(sale);
         }
     }
 }

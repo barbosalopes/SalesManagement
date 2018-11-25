@@ -7,27 +7,24 @@ namespace SalesManagement
 {
     public class Sale : Movement
     {
-        protected SalesManagement.Product[] Products
+        public override void Finish()
         {
-            get => default(Product[]);
-            set
-            {
-            }
+            foreach (Product product in GetProducts())
+                Stock.RemoveProduct(product);
         }
 
         public double GetBilledValue()
         {
-            throw new System.NotImplementedException();
+            double billedValue = 0;
+
+            foreach(Product product in GetProducts())
+            {
+                billedValue += product.GetPrice();
+            }
+
+            return billedValue;
         }
 
-        public Product[] GetProducts()
-        {
-            throw new System.NotImplementedException();
-        }
 
-        public void RemoveProduct()
-        {
-            throw new System.NotImplementedException();
-        }
     }
 }

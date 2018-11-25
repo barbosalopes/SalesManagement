@@ -7,14 +7,33 @@ namespace SalesManagement
 {
     public abstract class Movement
     {
-        public void Finish()
+        protected List<Product> Products;
+
+        public Movement()
         {
-            throw new System.NotImplementedException();
+            Products = new List<Product>();
         }
 
-        public void AddProduct()
+        public abstract void Finish();
+
+        public void AddProduct(Product product)
         {
-            throw new System.NotImplementedException();
+            Products.Add(product);
+        }
+
+        public void RemoveProduct(Product product)
+        {
+            bool couldRemove;
+            couldRemove = Products.Remove(product);
+            if (!couldRemove)
+            {
+                throw new ProductUnavailableException("Movement");
+            }
+        }
+
+        public List<Product> GetProducts()
+        {
+            return Products;
         }
     }
 }

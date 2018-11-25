@@ -7,45 +7,67 @@ namespace SalesManagement
 {
     public abstract class Product : Saleable
     {
-        public Product(double tax, string basePrice)
+        protected double BasePrice;
+        protected double Tax;
+        protected double Profit;
+        protected string Name;
+
+        public Product(string name, double basePrice, double profit, double tax = 0)
         {
-            throw new System.NotImplementedException();
+            BasePrice = basePrice;
+            Tax = tax;
+            Profit = profit;
+            Name = name;
         }
 
-        protected double basePrice
+        public virtual void SetProfit(double profit)
         {
-            get => default(int);
-            set
+            if(profit < GetMinProfit() || profit > GetMaxProfit())
             {
+                throw new InvalidProfitException(GetMinProfit(), GetMaxProfit());
+            }
+            else
+            {
+                Profit = profit;
             }
         }
+    
+        public abstract double GetMaxProfit();
 
-        protected double tax
-        {
-            get => default(int);
-            set
-            {
-            }
-        }
-
-        public virtual double GetMaxProfit()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual double GetMinProfit()
-        {
-            throw new NotImplementedException();
-        }
+        public abstract double GetMinProfit();
 
         public virtual double GetPrice()
         {
-            throw new NotImplementedException();
+            return BasePrice * (1 + Profit) * (1 + GetTax());
+        }
+
+        public virtual double GetBasePrice()
+        {
+            return BasePrice;
+        }
+
+        public virtual double GetPriceWithoutTax()
+        {
+            return BasePrice * (1 + Profit);
         }
 
         public virtual double GetTax()
         {
-            throw new NotImplementedException();
+            return Tax;
+        }
+
+        public abstract int GetMinAmount();
+
+        public virtual string GetName()
+        {
+            return Name;
+        }
+
+        public override bool Equals(object obj)
+        {
+            Product product = obj as Product;
+            return (GetName() == product.GetName()) &&
+                        GetType() == product.GetType();
         }
     }
 }

@@ -7,5 +7,12 @@ namespace SalesManagement
 {
     public class Order : Movement
     {
+        public override void Finish()
+        {
+            foreach(Product product in GetProducts())
+            {
+                Stock.AddProduct(product);
+            }
+        }
     }
 }
