@@ -12,6 +12,8 @@ namespace SalesManagement
 {
     public partial class Form1 : Form
     {
+        private Sale currentSale = new Sale();
+
         public Form1()
         {
             InitializeComponent();
@@ -29,26 +31,20 @@ namespace SalesManagement
             output.Text = s.ToString();
         }
 
-        private void output_TextChanged(object sender, EventArgs e)
+        private void UpdateProducts()
         {
-
-        }
-
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
+            StringBuilder s = new StringBuilder();
+            foreach(Product p in currentSale.GetProducts())
+            {
+                s.AppendLine(p.ToString());
+            }
+            products_on_sell.Text = s.ToString();
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
             string productName = product_name.Text;
             int selledAmount = int.Parse(amount_selled.Text);
-            Sale s = new Sale();
             Product p = null;
             Product pAux = Stock.GetProductType(productName);
 
@@ -69,11 +65,20 @@ namespace SalesManagement
                         p = new DomesticUtensil(productName, pAux.GetBasePrice(), pAux.GetProfit());
                         break;
                 }
-                s.AddProduct(p);
+                currentSale.AddProduct(p);
             }
-            s.Finish();
-            Company.AddSale(s);
+            UpdateProducts();
+            product_name.Text = "";
+            amount_selled.Text = "";
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            currentSale.Finish();
+            Company.AddSale(currentSale);
+            currentSale = new Sale();
             UpdateOutput();
+            UpdateProducts();
         }
     }
 }

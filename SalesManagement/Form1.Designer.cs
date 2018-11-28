@@ -34,16 +34,18 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.products_on_sell = new System.Windows.Forms.RichTextBox();
+            this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // output
             // 
+            this.output.Enabled = false;
             this.output.Location = new System.Drawing.Point(39, 173);
             this.output.Name = "output";
             this.output.Size = new System.Drawing.Size(471, 137);
             this.output.TabIndex = 1;
             this.output.Text = "";
-            this.output.TextChanged += new System.EventHandler(this.output_TextChanged);
             // 
             // product_name
             // 
@@ -51,7 +53,6 @@
             this.product_name.Name = "product_name";
             this.product_name.Size = new System.Drawing.Size(228, 26);
             this.product_name.TabIndex = 2;
-            this.product_name.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // amount_selled
             // 
@@ -68,7 +69,6 @@
             this.label1.Size = new System.Drawing.Size(110, 20);
             this.label1.TabIndex = 4;
             this.label1.Text = "Product Name";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // label2
             // 
@@ -89,11 +89,32 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // products_on_sell
+            // 
+            this.products_on_sell.Enabled = false;
+            this.products_on_sell.Location = new System.Drawing.Point(534, 31);
+            this.products_on_sell.Name = "products_on_sell";
+            this.products_on_sell.Size = new System.Drawing.Size(348, 279);
+            this.products_on_sell.TabIndex = 7;
+            this.products_on_sell.Text = "";
+            // 
+            // button2
+            // 
+            this.button2.Location = new System.Drawing.Point(354, 81);
+            this.button2.Name = "button2";
+            this.button2.Size = new System.Drawing.Size(75, 27);
+            this.button2.TabIndex = 8;
+            this.button2.Text = "finish";
+            this.button2.UseVisualStyleBackColor = true;
+            this.button2.Click += new System.EventHandler(this.button2_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(571, 334);
+            this.ClientSize = new System.Drawing.Size(904, 334);
+            this.Controls.Add(this.button2);
+            this.Controls.Add(this.products_on_sell);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -115,6 +136,8 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.RichTextBox products_on_sell;
+        private System.Windows.Forms.Button button2;
     }
 }
 
