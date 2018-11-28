@@ -33,6 +33,10 @@ namespace SalesManagement
         {
             return 0.1;
         }
-        
+
+        public override int GetTypeCode()
+        {
+            return 2;
+        }
     }
 }

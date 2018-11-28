@@ -5,22 +5,25 @@ using System.Text;
 
 namespace SalesManagement
 {
-    public class Company
+    public static class Company
     {
-        private List<Sale> Sales;
+        private static List<Sale> Sales = new List<Sale>();
 
-        public double GetGrossValue()
+        public static double GetGrossValue()
         {
             double grossValue = 0;
 
-            foreach(Product product in Stock.GetProducts())
+            foreach (Sale sale in Sales)
             {
-                grossValue += product.GetPriceWithoutTax() - product.GetBasePrice();
+                foreach (Product product in sale.GetProducts())
+                {
+                    grossValue += product.GetPriceWithoutTax() - product.GetBasePrice();
+                }
             }
             return grossValue;
         }
 
-        public double GetNetValue()
+        public static double GetNetValue()
         {
             double netValue = 0;
 
@@ -31,31 +34,104 @@ namespace SalesManagement
             return netValue;
         }
 
-        public Product GetBestSellerUni()
+        public static Product GetBestSellerUni()
         {
             int maxUnSelled = -1;
-            Product bestUnSelled;
+            Product bestUnSelled = null;
+            int uniSelled;
 
             foreach(Product productType in Stock.GetProductTypes())
             {
-
+                uniSelled = GetSelledProducts().Count(p => p.Equals(productType));
+                if (uniSelled > maxUnSelled)
+                {
+                    maxUnSelled = uniSelled;
+                    bestUnSelled = productType;
+                }
             }
-            return maxUnSelled;
+            return bestUnSelled;
         }
 
-        public Product GetBestSellerFat()
+        public static List<Product> GetSelledProducts()
         {
-            throw new System.NotImplementedException();
+            List<Product> products = new List<Product>();
+            foreach(Sale sale in Sales)
+            {
+                foreach (Product product in sale.GetProducts())
+                {
+                    products.Add(product);
+                }
+            }
+            return products;
         }
 
-        public Product GetBestSeller()
+        public static Product GetBestSellerFat()
         {
-            throw new System.NotImplementedException();
+            double maxFat = -1;
+            Product bestSellerFat = null;
+            double fat = 0;
+            List<Product> products;
+
+            foreach (Product productType in Stock.GetProductTypes())
+            {
+                products = GetSelledProducts().FindAll(p => p.Equals(productType));
+                foreach(Product product in products)
+                {
+                    fat += product.GetPrice();
+                }
+
+                if (fat > maxFat)
+                {
+                    maxFat = fat;
+                    bestSellerFat = productType;
+                }
+            }
+            return bestSellerFat;
         }
 
-        public void AddSale(Sale sale)
+        public static Product GetBestSeller()
+        {
+            double maxProfit = -1;
+            Product bestSeller = null;
+            double profit = 0;
+            List<Product> products;
+
+            foreach (Product productType in Stock.GetProductTypes())
+            {
+                products = GetSelledProducts().FindAll(p => p.Equals(productType));
+                foreach (Product product in products)
+                {
+                    profit += product.GetPrice() - product.GetBasePrice();
+                }
+
+                if (profit > maxProfit)
+                {
+                    maxProfit = profit;
+                    bestSeller = productType;
+                }
+            }
+            return bestSeller;
+        }
+
+        public static void AddSale(Sale sale)
         {
             Sales.Add(sale);
+        }
+
+        public static string ToString()
+        {
+            StringBuilder s = new StringBuilder();
+            int index = 0;
+            foreach(Sale sale in Sales)
+            {
+                s.AppendLine(index.ToString());
+                foreach(Product p in sale.GetProducts())
+                {
+                    s.AppendLine("Prod: " + p.GetName());
+                }
+                index++;
+            }
+            return s.ToString();
         }
     }
 }

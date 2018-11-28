@@ -12,6 +12,7 @@ namespace SalesManagement
         protected double Profit;
         protected string Name;
 
+
         public Product(string name, double basePrice, double profit, double tax = 0)
         {
             BasePrice = basePrice;
@@ -35,6 +36,11 @@ namespace SalesManagement
         public abstract double GetMaxProfit();
 
         public abstract double GetMinProfit();
+
+        public virtual double GetProfit()
+        {
+            return Profit;
+        }
 
         public virtual double GetPrice()
         {
@@ -62,12 +68,23 @@ namespace SalesManagement
         {
             return Name;
         }
+        public abstract int GetTypeCode();
 
         public override bool Equals(object obj)
         {
             Product product = obj as Product;
             return (GetName() == product.GetName()) &&
                         GetType() == product.GetType();
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 839513692;
+            hashCode = hashCode * -1521134295 + BasePrice.GetHashCode();
+            hashCode = hashCode * -1521134295 + Tax.GetHashCode();
+            hashCode = hashCode * -1521134295 + Profit.GetHashCode();
+            hashCode = hashCode * -1521134295 + EqualityComparer<string>.Default.GetHashCode(Name);
+            return hashCode;
         }
     }
 }

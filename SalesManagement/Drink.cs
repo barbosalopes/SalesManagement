@@ -34,5 +34,9 @@ namespace SalesManagement
             return 0.15;
         }
 
+        public override int GetTypeCode()
+        {
+            return 1;
+        }
     }
 }

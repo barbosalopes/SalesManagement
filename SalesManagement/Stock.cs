@@ -18,6 +18,11 @@ namespace SalesManagement
         {
             return ProductTypes;
         }
+        public static Product GetProductType(string productName)
+        {
+            return ProductTypes.Find(p => p.GetName() == productName);
+            
+        }
         public static void AddProductType(Product product)
         {
             if(!ProductTypes.Contains(product))
@@ -37,12 +42,10 @@ namespace SalesManagement
         }
         public static void RemoveProduct(Product product)
         {
+            ValidateStockAmount(product);
             bool couldRemove;
             couldRemove = Products.Remove(product);
-            if (!couldRemove)
-            {
-                throw new ProductUnavailableException("Stock");
-            }
+            if (!couldRemove) {}
         }
         public static void RemoveProducts(Product[] products)
         {
@@ -63,20 +66,19 @@ namespace SalesManagement
         }
         private static void ValidateStockAmount(Product product)
         {
-            int productTypeAmount = Products.FindAll(p => p.ToString() == product.ToString()).Count();
-            if (product.GetMinProfit() > productTypeAmount)
+            int productTypeAmount = Products.FindAll(p => p.Equals(product)).Count();
+            if (product.GetMinAmount() > productTypeAmount)
             {
                 CreateOrder(product);
             }
         }
-
         public static string ToString()
         {
             StringBuilder str = new StringBuilder();
             str.AppendLine("Stock State:");
             foreach(Product product in Products)
             {
-                str.AppendLine("Name:" + product.GetName());
+                str.AppendLine("Name:" + product.GetName() + " Type: " + product.GetType());
             }
 
             return str.ToString();
